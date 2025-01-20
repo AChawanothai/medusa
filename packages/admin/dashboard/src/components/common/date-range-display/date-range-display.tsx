@@ -1,23 +1,22 @@
-import { Text, clx } from "@medusajs/ui"
-import { useTranslation } from "react-i18next"
-import { useDate } from "../../../hooks/use-date"
+import { Text, clx } from "@medusajs/ui";
+import { useTranslation } from "react-i18next";
+import { formatDateTimeString } from "../../../utils/date-format";
 
 type DateRangeDisplayProps = {
-  startsAt?: Date | string | null
-  endsAt?: Date | string | null
-  showTime?: boolean
-}
+  startsAt?: Date | string | null;
+  endsAt?: Date | string | null;
+  showTime?: boolean;
+};
 
 export const DateRangeDisplay = ({
   startsAt,
   endsAt,
   showTime = false,
 }: DateRangeDisplayProps) => {
-  const startDate = startsAt ? new Date(startsAt) : null
-  const endDate = endsAt ? new Date(endsAt) : null
+  const startDate = startsAt ? new Date(startsAt) : null;
+  const endDate = endsAt ? new Date(endsAt) : null;
 
-  const { t } = useTranslation()
-  const { getFullDate } = useDate()
+  const { t } = useTranslation();
 
   return (
     <div className="grid gap-3 md:grid-cols-2">
@@ -28,12 +27,7 @@ export const DateRangeDisplay = ({
             {t("fields.startDate")}
           </Text>
           <Text size="small" className="tabular-nums">
-            {startDate
-              ? getFullDate({
-                  date: startDate,
-                  includeTime: showTime,
-                })
-              : "-"}
+            {startDate ? formatDateTimeString(startDate) : "-"}
           </Text>
         </div>
       </div>
@@ -45,23 +39,18 @@ export const DateRangeDisplay = ({
             {t("fields.endDate")}
           </Text>
           <Text size="small" className="tabular-nums">
-            {endDate
-              ? getFullDate({
-                  date: endDate,
-                  includeTime: showTime,
-                })
-              : "-"}
+            {endDate ? formatDateTimeString(endDate) : "-"}
           </Text>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Bar = ({ date }: { date: Date | null }) => {
-  const now = new Date()
+  const now = new Date();
 
-  const isDateInFuture = date && date > now
+  const isDateInFuture = date && date > now;
 
   return (
     <div
@@ -69,5 +58,5 @@ const Bar = ({ date }: { date: Date | null }) => {
         "bg-ui-tag-orange-icon": isDateInFuture,
       })}
     />
-  )
-}
+  );
+};

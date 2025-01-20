@@ -33,12 +33,12 @@ export const useProductTableColumns = () => {
         header: () => <ProductHeader />,
         cell: ({ row }) => <ProductCell product={row.original} />,
       }),
-      columnHelper.accessor("collection", {
-        header: () => <CollectionHeader />,
-        cell: ({ row }) => (
-          <CollectionCell collection={row.original.collection} />
-        ),
-      }),
+      // columnHelper.accessor("collection", {
+      //   header: () => <CollectionHeader />,
+      //   cell: ({ row }) => (
+      //     <CollectionCell collection={row.original.collection} />
+      //   ),
+      // }),
       columnHelper.accessor("sales_channels", {
         header: () => <SalesChannelHeader />,
         cell: ({ row }) => (

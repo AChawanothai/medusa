@@ -31,6 +31,7 @@ import { queryClient } from "../../../lib/query-client"
 import { useSearch } from "../../../providers/search-provider"
 import { UserMenu } from "../user-menu"
 
+//TO-DOS: Menu Disable (รอแก้ตาม Permission Settings)
 export const MainLayout = () => {
   return (
     <Shell>
@@ -54,7 +55,7 @@ const MainSidebar = () => {
             <CoreRouteSection />
             <ExtensionRouteSection />
           </div>
-          <UtilitySection />
+          {/* <UtilitySection /> */}
         </div>
         <div className="bg-ui-bg-subtle sticky bottom-0">
           <UserSection />
@@ -160,13 +161,13 @@ const Header = () => {
                 </Text>
               </div>
             </div>
-            <DropdownMenu.Separator />
+            {/* <DropdownMenu.Separator />
             <DropdownMenu.Item className="gap-x-2" asChild>
               <Link to="/settings/store">
                 <BuildingStorefront className="text-ui-fg-subtle" />
                 {t("app.nav.main.storeSettings")}
               </Link>
-            </DropdownMenu.Item>
+            </DropdownMenu.Item> */}
             <DropdownMenu.Separator />
             <Logout />
           </DropdownMenu.Content>
@@ -197,10 +198,10 @@ const useCoreRoutes = (): Omit<INavItem, "pathname">[] => {
       label: t("products.domain"),
       to: "/products",
       items: [
-        {
-          label: t("collections.domain"),
-          to: "/collections",
-        },
+        // {
+        //   label: t("collections.domain"),
+        //   to: "/collections",
+        // },
         {
           label: t("categories.domain"),
           to: "/categories",
@@ -212,17 +213,17 @@ const useCoreRoutes = (): Omit<INavItem, "pathname">[] => {
         // },
       ],
     },
-    {
-      icon: <Buildings />,
-      label: t("inventory.domain"),
-      to: "/inventory",
-      items: [
-        {
-          label: t("reservations.domain"),
-          to: "/reservations",
-        },
-      ],
-    },
+    // {
+    //   icon: <Buildings />,
+    //   label: t("inventory.domain"),
+    //   to: "/inventory",
+    //   items: [
+    //     {
+    //       label: t("reservations.domain"),
+    //       to: "/reservations",
+    //     },
+    //   ],
+    // },
     {
       icon: <Users />,
       label: t("customers.domain"),
@@ -234,17 +235,17 @@ const useCoreRoutes = (): Omit<INavItem, "pathname">[] => {
         },
       ],
     },
-    {
-      icon: <ReceiptPercent />,
-      label: t("promotions.domain"),
-      to: "/promotions",
-      items: [
-        {
-          label: t("campaigns.domain"),
-          to: "/campaigns",
-        },
-      ],
-    },
+    // {
+    //   icon: <ReceiptPercent />,
+    //   label: t("promotions.domain"),
+    //   to: "/promotions",
+    //   items: [
+    //     {
+    //       label: t("campaigns.domain"),
+    //       to: "/campaigns",
+    //     },
+    //   ],
+    // },
     {
       icon: <CurrencyDollar />,
       label: t("priceLists.domain"),

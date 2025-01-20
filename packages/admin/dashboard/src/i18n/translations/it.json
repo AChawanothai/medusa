@@ -2092,14 +2092,14 @@
         "label": "La lista prezzi ha una data di scadenza?",
         "hint": "Pianifica la lista prezzi per disattivarsi in futuro."
       },
-        "customerAvailability": {
-          "header": "Scegli gruppi di clienti",
-          "label": "Disponibilità cliente",
-          "hint": "Scegli quali gruppi di clienti la lista prezzi dovrebbe essere applicata.",
-          "placeholder": "Cerca gruppi di clienti",
-          "attribute": "Gruppi di clienti"
-        }
+      "customerAvailability": {
+        "header": "Scegli gruppi di clienti",
+        "label": "Disponibilità cliente",
+        "hint": "Scegli quali gruppi di clienti la lista prezzi dovrebbe essere applicata.",
+        "placeholder": "Cerca gruppi di clienti",
+        "attribute": "Gruppi di clienti"
       }
+    }
   },
   "profile": {
     "domain": "Profilo",

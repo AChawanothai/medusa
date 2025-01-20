@@ -645,15 +645,6 @@
         }
       }
     },
-    "stock": {
-      "heading": "Manage product stock levels and locations",
-      "description": "Update the stocked inventory levels for all of the product's variants.",
-      "loading": "Hang on this may take a moment...",
-      "tooltips": {
-        "alreadyManaged": "This inventory item is already editable under {{title}}.",
-        "alreadyManagedWithSku": "This inventory item is already editable under {{title}} ({{sku}})."
-      }
-    },
     "toasts": {
       "delete": {
         "success": {
@@ -808,16 +799,6 @@
       "updateLocations": "Locations updated successfully.",
       "updateLevel": "Inventory level updated successfully.",
       "updateItem": "Inventory item updated successfully."
-    },
-    "stock": {
-      "title": "Update inventory levels",
-      "description": "Update the stocked inventory levels for the selected inventory items.",
-      "action": "Edit stock levels",
-      "placeholder": "Not enabled",
-      "disablePrompt_one": "You are about to disable {{count}} location level. This action cannot be undone.",
-      "disablePrompt_other": "You are about to disable {{count}} location levels. This action cannot be undone.",
-      "disabledToggleTooltip": "Cannot disable: clear incoming and/or reserved quantity before disabling.",
-      "successToast": "Inventory levels updated successfully."
     }
   },
   "giftCards": {
@@ -927,24 +908,16 @@
   },
   "orders": {
     "domain": "Orders",
+    "subtitle": "Manage all orders in the system, including payments and shipment",
     "claim": "Claim",
     "exchange": "Exchange",
     "return": "Return",
     "cancelWarning": "You are about to cancel the order {{id}}. This action cannot be undone.",
-    "orderCanceled": "Order canceled successfully",
     "onDateFromSalesChannel": "{{date}} from {{salesChannel}}",
     "list": {
       "noRecordsMessage": "Your orders will show up here."
     },
-    "status": {
-      "not_paid": "Not paid",
-      "pending": "Pending",
-      "completed": "Completed",
-      "draft": "Draft",
-      "archived": "Archived",
-      "canceled": "Canceled",
-      "requires_action": "Requires action"
-    },
+    "orderCanceled": "Order canceled",
     "summary": {
       "requestReturn": "Request return",
       "allocateItems": "Allocate items",
@@ -972,6 +945,7 @@
       "title": "Payments",
       "isReadyToBeCaptured": "Payment <0/> is ready to be captured.",
       "totalPaidByCustomer": "Total paid by customer",
+      "totalPendingByCustomer": "Total pending by customer",
       "capture": "Capture payment",
       "capture_short": "Capture",
       "refund": "Refund",
@@ -1024,7 +998,7 @@
         "titlePending": "Order edit pending"
       },
       "toast": {
-        "canceledSuccessfully": "Order edit cancelled",
+        "canceledSuccessfully": "Order edit canceled",
         "confirmedSuccessfully": "Order edit confirmed"
       },
       "validation": {
@@ -1245,7 +1219,10 @@
         "partiallyReturned": "Partially returned",
         "returned": "Returned",
         "canceled": "Canceled",
-        "requiresAction": "Requires action"
+        "requiresAction": "Requires action",
+        "awaitingShipping": "Awaiting shipping",
+        "awaitingDelivery": "Awaiting delivery",
+        "awaitingPickup": "Awaiting pickup"
       },
       "toast": {
         "created": "Fulfillment created successfully",
@@ -1255,7 +1232,12 @@
       },
       "trackingLabel": "Tracking",
       "shippingFromLabel": "Shipping from",
-      "itemsLabel": "Items"
+      "itemsLabel": "Items",
+      "method": {
+        "pickup": "Pickup at shop",
+        "delivery": "Home delivery"
+      },
+      "shippingMethod": "Shipment Method"
     },
     "refund": {
       "title": "Create Refund",
@@ -1552,8 +1534,7 @@
           "hint": "Whether customers can use this option during checkout."
         },
         "provider": "Fulfillment provider",
-        "profile": "Shipping profile",
-        "fulfillmentOption": "Fulfillment option"
+        "profile": "Shipping profile"
       }
     },
     "serviceZones": {
@@ -1933,19 +1914,7 @@
         }
       },
       "status": {
-        "label": "Status",
-        "draft": {
-          "title": "Draft",
-          "description": "Customers will not be able to use the code yet"
-        },
-        "active": {
-          "title": "Active",
-          "description": "Customers will be able to use the code"
-        },
-        "inactive": {
-          "title": "Inactive",
-          "description": "Customers will no longer be able to use the code"
-        }
+        "title": "Status"
       },
       "method": {
         "label": "Method",
@@ -2243,7 +2212,6 @@
       "member": "Member"
     },
     "deleteUserWarning": "You are about to delete the user {{name}}. This action cannot be undone.",
-    "deleteUserSuccess": "User {{name}} deleted successfully",
     "invite": "Invite"
   },
   "store": {
@@ -2532,7 +2500,10 @@
         "placeholder": "wrong_size",
         "tooltip": "The value should be a unique identifier for the return reason."
       },
-      "label": { "label": "Label", "placeholder": "Wrong size" },
+      "label": {
+        "label": "Label",
+        "placeholder": "Wrong size"
+      },
       "description": {
         "label": "Description",
         "placeholder": "Customer received the wrong size"
@@ -2541,11 +2512,11 @@
   },
   "login": {
     "forgotPassword": "Forgot password? - <0>Reset</0>",
-    "title": "Welcome to Medusa",
+    "title": "Welcome to E-Ordering SellerPortal",
     "hint": "Sign in to access the account area"
   },
   "invite": {
-    "title": "Welcome to Medusa",
+    "title": "Welcome to E-Ordering SellerPortal",
     "hint": "Create your account below",
     "backToLogin": "Back to login",
     "createAccount": "Create account",
@@ -2553,8 +2524,8 @@
     "emailTooltip": "Your email cannot be changed. If you would like to use another email, a new invite must be sent.",
     "invalidInvite": "The invite is invalid or has expired.",
     "successTitle": "Your account has been registered",
-    "successHint": "Get started with Medusa Admin right away.",
-    "successAction": "Start Medusa Admin",
+    "successHint": "Get started with E-Ordering SellerPortal Admin right away.",
+    "successAction": "Start E-Ordering SellerPortal Admin",
     "invalidTokenTitle": "Your invite token is invalid",
     "invalidTokenHint": "Try requesting a new invite link.",
     "passwordMismatch": "Passwords do not match",
@@ -2689,8 +2660,6 @@
     "scheduled": "Scheduled",
     "expired": "Expired",
     "active": "Active",
-    "inactive": "Inactive",
-    "draft": "Draft",
     "enabled": "Enabled",
     "disabled": "Disabled"
   },
@@ -2826,6 +2795,7 @@
     "expiryDate": "Expiry date",
     "price": "Price",
     "priceTemplate": "Price {{regionOrCurrency}}",
+    "srpPrice": "Standard price",
     "height": "Height",
     "width": "Width",
     "length": "Length",
@@ -2860,7 +2830,12 @@
     "startDate": "Start date",
     "endDate": "End date",
     "draft": "Draft",
-    "values": "Values"
+    "values": "Values",
+    "cod": "Cash on delivery",
+    "credit": "Credit/Debit Card",
+    "paypal": "Paypal",
+    "adyen": "Adyen",
+    "manual": "Manual"
   },
   "dateTime": {
     "years_one": "Year",

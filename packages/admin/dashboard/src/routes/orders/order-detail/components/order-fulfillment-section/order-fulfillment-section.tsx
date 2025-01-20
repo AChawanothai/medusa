@@ -154,12 +154,29 @@ const UnfulfilledItemDisplay = ({
     return
   }
 
+  const getProviderName = (shipment: AdminOrderShippingMethod[]) => {
+    const provider = shipment.sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    )[0]
+
+    if (provider?.name === "pickup" || provider?.name === "delivery") {
+      return t("orders.fulfillment.method." + provider.name)
+    } else {
+      return provider?.name
+    }
+  }
+
   return (
     <Container className="divide-y p-0">
       <div className="flex items-center justify-between px-6 py-4">
         <Heading level="h2">{t("orders.fulfillment.unfulfilledItems")}</Heading>
 
         <div className="flex items-center gap-x-4">
+          <StatusBadge className="text-nowrap">
+            {getProviderName(order.shipping_methods)}
+          </StatusBadge>
+
           {requiresShipping && (
             <StatusBadge color="red" className="text-nowrap">
               {t("orders.fulfillment.requiresShipping")}
@@ -222,21 +239,21 @@ const Fulfillment = ({
   )
 
   let statusText = fulfillment.requires_shipping
-    ? "Awaiting shipping"
-    : "Awaiting delivery"
+    ? t("orders.fulfillment.status.awaitingShipping")
+    : t("orders.fulfillment.status.awaitingDelivery")
   let statusColor: "blue" | "green" | "red" = "blue"
   let statusTimestamp = fulfillment.created_at
 
   if (fulfillment.canceled_at) {
-    statusText = "Canceled"
+    statusText = t("orders.fulfillment.status.canceled")
     statusColor = "red"
     statusTimestamp = fulfillment.canceled_at
   } else if (fulfillment.delivered_at) {
-    statusText = "Delivered"
+    statusText = t("orders.fulfillment.status.delivered")
     statusColor = "green"
     statusTimestamp = fulfillment.delivered_at
   } else if (fulfillment.shipped_at) {
-    statusText = "Shipped"
+    statusText = t("orders.fulfillment.status.shipped")
     statusColor = "green"
     statusTimestamp = fulfillment.shipped_at
   }
@@ -301,6 +318,21 @@ const Fulfillment = ({
           toast.error(e.message)
         },
       })
+    }
+  }
+
+  const getProviderName = (
+    fulfillment: AdminOrderFulfillment,
+    shipment: AdminOrderShippingMethod[],
+  ) => {
+    const provider = shipment.find(
+      (s) => s.shipping_option_id === fulfillment.shipping_option_id,
+    )
+
+    if (provider?.name === "pickup" || provider?.name === "delivery") {
+      return t("orders.fulfillment.method." + provider.name)
+    } else {
+      return provider?.name
     }
   }
 
@@ -378,14 +410,14 @@ const Fulfillment = ({
       )}
       <div className="text-ui-fg-subtle grid grid-cols-2 items-center px-6 py-4">
         <Text size="small" leading="compact" weight="plus">
-          {t("fields.provider")}
+          {t("orders.fulfillment.shippingMethod")}
         </Text>
 
         <Text size="small" leading="compact">
-          {formatProvider(fulfillment.provider_id)}
+          {getProviderName(fulfillment, order.shipping_methods)}
         </Text>
       </div>
-      <div className="text-ui-fg-subtle grid grid-cols-2 items-start px-6 py-4">
+      {/* <div className="text-ui-fg-subtle grid grid-cols-2 items-start px-6 py-4">
         <Text size="small" leading="compact" weight="plus">
           {t("orders.fulfillment.trackingLabel")}
         </Text>
@@ -428,7 +460,7 @@ const Fulfillment = ({
             </Text>
           )}
         </div>
-      </div>
+      </div> */}
 
       {(showShippingButton || showDeliveryButton) && (
         <div className="bg-ui-bg-subtle flex items-center justify-end gap-x-2 rounded-b-xl px-4 py-4">

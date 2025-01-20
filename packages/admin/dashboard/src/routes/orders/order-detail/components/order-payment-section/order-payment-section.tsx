@@ -1,5 +1,5 @@
-import { ArrowDownRightMini, DocumentText, XCircle } from "@medusajs/icons"
-import { AdminOrder, AdminPayment, HttpTypes } from "@medusajs/types"
+import { ArrowDownRightMini, DocumentText, XCircle } from "@medusajs/icons";
+import { AdminOrder, AdminPayment, HttpTypes } from "@medusajs/types";
 import {
   Badge,
   Button,
@@ -10,38 +10,39 @@ import {
   toast,
   Tooltip,
   usePrompt,
-} from "@medusajs/ui"
-import { format } from "date-fns"
-import { Trans, useTranslation } from "react-i18next"
-import { ActionMenu } from "../../../../../components/common/action-menu"
-import DisplayId from "../../../../../components/common/display-id/display-id"
-import { useCapturePayment } from "../../../../../hooks/api"
-import { formatCurrency } from "../../../../../lib/format-currency"
+} from "@medusajs/ui";
+import { format } from "date-fns";
+import { Trans, useTranslation } from "react-i18next";
+import { ActionMenu } from "../../../../../components/common/action-menu";
+import DisplayId from "../../../../../components/common/display-id/display-id";
+import { useCapturePayment } from "../../../../../hooks/api";
+import { formatCurrency } from "../../../../../lib/format-currency";
 import {
   getLocaleAmount,
   getStylizedAmount,
-} from "../../../../../lib/money-amount-helpers"
-import { getOrderPaymentStatus } from "../../../../../lib/order-helpers"
-import { getTotalCaptured, getTotalPending } from "../../../../../lib/payment"
+} from "../../../../../lib/money-amount-helpers";
+import { getOrderPaymentStatus } from "../../../../../lib/order-helpers";
+import { getTotalCaptured, getTotalPending } from "../../../../../lib/payment";
+import { formatDateTimeString } from "../../../../../utils/date-format";
 
 type OrderPaymentSectionProps = {
-  order: HttpTypes.AdminOrder
-}
+  order: HttpTypes.AdminOrder;
+};
 
 export const getPaymentsFromOrder = (order: HttpTypes.AdminOrder) => {
   return order.payment_collections
     .map((collection: HttpTypes.AdminPaymentCollection) => collection.payments)
     .flat(1)
-    .filter(Boolean) as HttpTypes.AdminPayment[]
-}
+    .filter(Boolean) as HttpTypes.AdminPayment[];
+};
 
 export const OrderPaymentSection = ({ order }: OrderPaymentSectionProps) => {
-  const payments = getPaymentsFromOrder(order)
+  const payments = getPaymentsFromOrder(order);
 
   const refunds = payments
     .map((payment) => payment?.refunds)
     .flat(1)
-    .filter(Boolean) as HttpTypes.AdminRefund[]
+    .filter(Boolean) as HttpTypes.AdminRefund[];
 
   return (
     <Container className="divide-y divide-dashed p-0">
@@ -56,12 +57,12 @@ export const OrderPaymentSection = ({ order }: OrderPaymentSectionProps) => {
 
       <Total order={order} />
     </Container>
-  )
-}
+  );
+};
 
 const Header = ({ order }) => {
-  const { t } = useTranslation()
-  const { label, color } = getOrderPaymentStatus(t, order.payment_status)
+  const { t } = useTranslation();
+  const { label, color } = getOrderPaymentStatus(t, order.payment_status);
 
   return (
     <div className="flex items-center justify-between px-6 py-4">
@@ -71,17 +72,17 @@ const Header = ({ order }) => {
         {label}
       </StatusBadge>
     </div>
-  )
-}
+  );
+};
 
 const Refund = ({
   refund,
   currencyCode,
 }: {
-  refund: HttpTypes.AdminRefund
-  currencyCode: string
+  refund: HttpTypes.AdminRefund;
+  currencyCode: string;
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const RefundReasonBadge = refund?.refund_reason && (
     <Badge
       size="2xsmall"
@@ -90,13 +91,13 @@ const Refund = ({
     >
       {refund.refund_reason.label}
     </Badge>
-  )
+  );
 
   const RefundNoteIndicator = refund.note && (
     <Tooltip content={refund.note}>
       <DocumentText className="text-ui-tag-neutral-icon ml-1 inline" />
     </Tooltip>
-  )
+  );
 
   return (
     <div className="bg-ui-bg-subtle text-ui-fg-subtle grid grid-cols-[1fr_1fr_1fr_20px] items-center gap-x-4 px-6 py-4">
@@ -120,8 +121,8 @@ const Refund = ({
         </Text>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Payment = ({
   order,
@@ -129,14 +130,14 @@ const Payment = ({
   refunds,
   currencyCode,
 }: {
-  order: HttpTypes.AdminOrder
-  payment: HttpTypes.AdminPayment
-  refunds: HttpTypes.AdminRefund[]
-  currencyCode: string
+  order: HttpTypes.AdminOrder;
+  payment: HttpTypes.AdminPayment;
+  refunds: HttpTypes.AdminRefund[];
+  currencyCode: string;
 }) => {
-  const { t } = useTranslation()
-  const prompt = usePrompt()
-  const { mutateAsync } = useCapturePayment(order.id, payment.id)
+  const { t } = useTranslation();
+  const prompt = usePrompt();
+  const { mutateAsync } = useCapturePayment(order.id, payment.id);
 
   const handleCapture = async () => {
     const res = await prompt({
@@ -147,10 +148,10 @@ const Payment = ({
       confirmText: t("actions.confirm"),
       cancelText: t("actions.cancel"),
       variant: "confirmation",
-    })
+    });
 
     if (!res) {
-      return
+      return;
     }
 
     await mutateAsync(
@@ -161,37 +162,58 @@ const Payment = ({
             t("orders.payment.capturePaymentSuccess", {
               amount: formatCurrency(payment.amount as number, currencyCode),
             })
-          )
+          );
         },
         onError: (error) => {
-          toast.error(error.message)
+          toast.error(error.message);
         },
       }
-    )
-  }
+    );
+  };
 
   const getPaymentStatusAttributes = (payment: AdminPayment) => {
     if (payment.canceled_at) {
-      return ["Canceled", "red"]
+      return [t("orders.payment.status.canceled"), "red"];
     } else if (payment.captured_at) {
-      return ["Captured", "green"]
+      return [t("orders.payment.status.captured"), "green"];
     } else {
-      return ["Pending", "orange"]
+      return [t("orders.payment.status.notPaid"), "orange"];
     }
-  }
+  };
 
   const [status, color] = getPaymentStatusAttributes(payment) as [
     string,
     "green" | "orange" | "red",
-  ]
+  ];
 
   const showCapture =
-    payment.captured_at === null && payment.canceled_at === null
+    payment.captured_at === null && payment.canceled_at === null;
 
   const totalRefunded = payment.refunds.reduce(
     (acc, next) => next.amount + acc,
     0
-  )
+  );
+
+  const providerName = (providerId: string) => {
+    const providerIdentifierArr = providerId.split("_");
+    const providerIdentifier =
+      providerIdentifierArr[providerIdentifierArr.length - 1];
+
+    switch (providerIdentifier) {
+      case "stripe":
+        return t("fields.credit");
+      case "paypal":
+        return t("fields.paypal");
+      case "adyen":
+        return t("fields.adyen");
+      case "manual":
+        return t("fields.manual");
+      case "eocod":
+        return t("fields.cod");
+      default:
+        return providerId;
+    }
+  };
 
   return (
     <div className="divide-y divide-dashed">
@@ -206,15 +228,12 @@ const Payment = ({
             <DisplayId id={payment.id} />
           </Text>
           <Text size="small" leading="compact">
-            {format(
-              new Date(payment.created_at as string),
-              "dd MMM, yyyy, HH:mm:ss"
-            )}
+            {formatDateTimeString(new Date(payment.created_at as string))}
           </Text>
         </div>
         <div className="hidden items-center justify-end sm:flex">
           <Text size="small" leading="compact" className="capitalize">
-            {payment.provider_id}
+            {providerName(payment.provider_id)}
           </Text>
         </div>
         <div className="flex items-center justify-end">
@@ -276,8 +295,8 @@ const Payment = ({
         <Refund key={refund.id} refund={refund} currencyCode={currencyCode} />
       ))}
     </div>
-  )
-}
+  );
+};
 
 const PaymentBreakdown = ({
   order,
@@ -285,32 +304,32 @@ const PaymentBreakdown = ({
   refunds,
   currencyCode,
 }: {
-  order: HttpTypes.AdminOrder
-  payments: HttpTypes.AdminPayment[]
-  refunds: HttpTypes.AdminRefund[]
-  currencyCode: string
+  order: HttpTypes.AdminOrder;
+  payments: HttpTypes.AdminPayment[];
+  refunds: HttpTypes.AdminRefund[];
+  currencyCode: string;
 }) => {
   /**
    * Refunds that are not associated with a payment.
    */
-  const orderRefunds = refunds.filter((refund) => refund.payment_id === null)
+  const orderRefunds = refunds.filter((refund) => refund.payment_id === null);
 
   const entries = [...orderRefunds, ...payments]
     .sort((a, b) => {
       return (
         new Date(a.created_at as string).getTime() -
         new Date(b.created_at as string).getTime()
-      )
+      );
     })
     .map((entry) => {
       return {
         event: entry,
         type: entry.id.startsWith("pay_") ? "payment" : "refund",
-      }
+      };
     }) as (
     | { type: "payment"; event: HttpTypes.AdminPayment }
     | { type: "refund"; event: HttpTypes.AdminRefund }
-  )[]
+  )[];
 
   return (
     <div className="flex flex-col divide-y divide-dashed">
@@ -327,7 +346,7 @@ const PaymentBreakdown = ({
                 )}
                 currencyCode={currencyCode}
               />
-            )
+            );
           case "refund":
             return (
               <Refund
@@ -335,16 +354,16 @@ const PaymentBreakdown = ({
                 refund={event}
                 currencyCode={currencyCode}
               />
-            )
+            );
         }
       })}
     </div>
-  )
-}
+  );
+};
 
 const Total = ({ order }: { order: AdminOrder }) => {
-  const { t } = useTranslation()
-  const totalPending = getTotalPending(order.payment_collections)
+  const { t } = useTranslation();
+  const totalPending = getTotalPending(order.payment_collections);
 
   return (
     <div>
@@ -364,7 +383,7 @@ const Total = ({ order }: { order: AdminOrder }) => {
       {order.status !== "canceled" && totalPending > 0 && (
         <div className="flex items-center justify-between px-6 py-4">
           <Text size="small" weight="plus" leading="compact">
-            Total pending
+            {t("orders.payment.totalPendingByCustomer")}
           </Text>
 
           <Text size="small" weight="plus" leading="compact">
@@ -373,5 +392,5 @@ const Total = ({ order }: { order: AdminOrder }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};

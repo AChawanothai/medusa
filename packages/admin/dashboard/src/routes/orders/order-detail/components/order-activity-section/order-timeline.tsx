@@ -33,6 +33,7 @@ import { getStylizedAmount } from "../../../../../lib/money-amount-helpers"
 import { getPaymentsFromOrder } from "../order-payment-section"
 import ActivityItems from "./activity-items"
 import ChangeDetailsTooltip from "./change-details-tooltip"
+import { formatDateTimeString } from "../../../../../utils/date-format"
 
 type OrderTimelineProps = {
   order: AdminOrder
@@ -596,7 +597,7 @@ const OrderActivityItem = ({
           )}
           {timestamp && (
             <Tooltip
-              content={getFullDate({ date: timestamp, includeTime: true })}
+              content={formatDateTimeString(new Date(timestamp as string))}
             >
               <Text
                 size="small"
