@@ -20,47 +20,48 @@ export const SettingsLayout = () => {
   )
 }
 
+//TO-DOS: Menu Disable (Settings) ตาม Permission
 const useSettingRoutes = (): INavItem[] => {
   const { t } = useTranslation()
 
   return useMemo(
     () => [
-      {
-        label: t("store.domain"),
-        to: "/settings/store",
-      },
+      // {
+      //   label: t("store.domain"),
+      //   to: "/settings/store",
+      // },
       {
         label: t("users.domain"),
         to: "/settings/users",
       },
-      {
-        label: t("regions.domain"),
-        to: "/settings/regions",
-      },
-      {
-        label: t("taxRegions.domain"),
-        to: "/settings/tax-regions",
-      },
-      {
-        label: t("returnReasons.domain"),
-        to: "/settings/return-reasons",
-      },
-      {
-        label: t("salesChannels.domain"),
-        to: "/settings/sales-channels",
-      },
-      {
-        label: t("productTypes.domain"),
-        to: "/settings/product-types",
-      },
-      {
-        label: t("productTags.domain"),
-        to: "/settings/product-tags",
-      },
-      {
-        label: t("stockLocations.domain"),
-        to: "/settings/locations",
-      },
+      // {
+      //   label: t("regions.domain"),
+      //   to: "/settings/regions",
+      // },
+      // {
+      //   label: t("taxRegions.domain"),
+      //   to: "/settings/tax-regions",
+      // },
+      // {
+      //   label: t("returnReasons.domain"),
+      //   to: "/settings/return-reasons",
+      // },
+      // {
+      //   label: t("salesChannels.domain"),
+      //   to: "/settings/sales-channels",
+      // },
+      // {
+      //   label: t("productTypes.domain"),
+      //   to: "/settings/product-types",
+      // },
+      // {
+      //   label: t("productTags.domain"),
+      //   to: "/settings/product-tags",
+      // },
+      // {
+      //   label: t("stockLocations.domain"),
+      //   to: "/settings/locations",
+      // },
     ],
     [t]
   )
@@ -141,13 +142,13 @@ const SettingsSidebar = () => {
           <div className="flex items-center justify-center px-3">
             <Divider variant="dashed" />
           </div>
-          <CollapsibleSection
+          {/* <CollapsibleSection
             label={t("app.nav.settings.developer")}
             items={developerRoutes}
           />
           <div className="flex items-center justify-center px-3">
             <Divider variant="dashed" />
-          </div>
+          </div> */}
           <CollapsibleSection
             label={t("app.nav.settings.myAccount")}
             items={myAccountRoutes}

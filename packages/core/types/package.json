@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/medusajs/medusa",
-    "directory": "packages/core/types"
+    "directory": "packages/types"
   },
   "engines": {
     "node": ">=20"

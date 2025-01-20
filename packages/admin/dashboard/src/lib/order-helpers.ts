@@ -5,7 +5,7 @@ export const getCanceledOrderStatus = (
   status: string
 ) => {
   if (status === "canceled") {
-    return { label: t("orders.status.canceled"), color: "red" }
+    return { label: t("orders.orderCanceled"), color: "red" }
   }
 
   return

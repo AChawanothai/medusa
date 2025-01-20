@@ -60,7 +60,7 @@ const InvalidResetToken = () => {
 
   return (
     <div className="bg-ui-bg-base flex min-h-dvh w-dvw items-center justify-center">
-      <div className="m-4 flex w-full max-w-[300px] flex-col items-center">
+      <div className="m-4 flex w-full max-w-[320px] flex-col items-center">
         <LogoBox className="mb-4" />
         <div className="mb-6 flex flex-col items-center">
           <Heading>{t("resetPassword.invalidLinkTitle")}</Heading>
@@ -144,7 +144,7 @@ const ChooseNewPassword = ({ token }: { token: string }) => {
 
   return (
     <div className="bg-ui-bg-subtle flex min-h-dvh w-dvw items-center justify-center">
-      <div className="m-4 flex w-full max-w-[280px] flex-col items-center">
+      <div className="m-4 flex w-full max-w-[320px] flex-col items-center">
         <LogoBox className="mb-4" />
         <div className="mb-6 flex flex-col items-center">
           <Heading>{t("resetPassword.resetPassword")}</Heading>
@@ -273,7 +273,7 @@ export const ResetPassword = () => {
 
   return (
     <div className="bg-ui-bg-base flex min-h-dvh w-dvw items-center justify-center">
-      <div className="m-4 flex w-full max-w-[300px] flex-col items-center">
+      <div className="m-4 flex w-full max-w-[320px] flex-col items-center">
         <LogoBox className="mb-4" />
         <div className="mb-4 flex flex-col items-center">
           <Heading>{t("resetPassword.resetPassword")}</Heading>

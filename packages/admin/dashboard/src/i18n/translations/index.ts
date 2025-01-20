@@ -11,37 +11,37 @@ import tr from "./tr.json"
 import uk from "./uk.json"
 
 export default {
-  de: {
-    translation: de,
-  },
+  // de: {
+  //   translation: de,
+  // },
   en: {
     translation: en,
   },
-  es: {
-    translation: es,
-  },
-  fr: {
-    translation: fr,
-  },
-  it: {
-    translation: it,
-  },
-  ja: {
-    translation: ja,
-  },
-  pl: {
-    translation: pl,
-  },
-  ptBR: {
-    translation: ptBR,
-  },
+  // es: {
+  //   translation: es,
+  // },
+  // fr: {
+  //   translation: fr,
+  // },
+  // it: {
+  //   translation: it,
+  // },
+  // ja: {
+  //   translation: ja,
+  // },
+  // pl: {
+  //   translation: pl,
+  // },
+  // ptBR: {
+  //   translation: ptBR,
+  // },
   th: {
     translation: th,
   },
-  tr: {
-    translation: tr,
-  },
-  uk: {
-    translation: uk,
-  },
+  // tr: {
+  //   translation: tr,
+  // },
+  // uk: {
+  //   translation: uk,
+  // },
 }
